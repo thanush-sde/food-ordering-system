@@ -2,10 +2,6 @@
 
 A full-stack food ordering platform with role-based access for **customers** and **restaurant owners** — built with Spring Boot, React, and MySQL. Customers can browse restaurants, order food, track deliveries, and leave reviews; restaurant owners can manage their menus and fulfill incoming orders.
 
-## 🚀 Live Demo / Screenshots
-
-*(Add screenshots or a deployed link here once available)*
-
 ## 🛠️ Tech Stack
 
 **Backend:** Java 21 · Spring Boot 3.5 · Spring Security · Spring Data JPA (Hibernate) · MySQL · JWT (jjwt) · Maven
