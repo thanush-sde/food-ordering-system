@@ -40,14 +40,11 @@ public class Restaurant {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    // ===== Relation 1: Many-to-One with User (the owner) =====
-    // Many restaurants can be owned by... well, in our case one owner per restaurant,
-    // but one User (RESTAURANT_OWNER) could theoretically own multiple restaurants.
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
-    // ===== Relation 2: One-to-Many with MenuItem =====
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<MenuItem> menuItems = new HashSet<>();
 
@@ -56,7 +53,6 @@ public class Restaurant {
         this.createdAt = LocalDateTime.now();
     }
 
-    // Helper method to keep both sides in sync
     public void addMenuItem(MenuItem menuItem) {
         menuItems.add(menuItem);
         menuItem.setRestaurant(this);

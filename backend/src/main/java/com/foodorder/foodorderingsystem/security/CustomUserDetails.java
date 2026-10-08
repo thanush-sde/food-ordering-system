@@ -16,8 +16,6 @@ public class CustomUserDetails implements UserDetails {
         this.user = user;
     }
 
-    // Exposes the underlying entity when we need the actual User object
-    // (e.g., in controllers, to get the database ID)
     public User getUser() {
         return user;
     }
@@ -36,7 +34,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getEmail(); // we log in with email, not a separate "username" field
+        return user.getEmail(); 
     }
 
     @Override

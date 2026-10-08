@@ -15,5 +15,5 @@ public class ErrorResponse {
     private int status;
     private String error;
     private String message;
-    private Map<String, String> validationErrors; // null unless it's a validation failure
+    private Map<String, String> validationErrors; 
 }

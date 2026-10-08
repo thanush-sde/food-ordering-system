@@ -36,7 +36,7 @@ public class AuthService {
             throw new IllegalArgumentException("Email is already registered");
         }
 
-        // Convert the role string from the DTO into our actual enum, safely
+        
         Role.RoleName roleName;
         try {
             roleName = Role.RoleName.valueOf(request.getRole().toUpperCase());
@@ -44,7 +44,7 @@ public class AuthService {
             throw new IllegalArgumentException("Invalid role: " + request.getRole());
         }
 
-        // Don't allow self-registration as ADMIN
+
         if (roleName == Role.RoleName.ADMIN) {
             throw new IllegalArgumentException("Cannot self-register as ADMIN");
         }
@@ -77,8 +77,6 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
 
-        // This line does the actual password verification internally,
-        // via DaoAuthenticationProvider -> BCryptPasswordEncoder.matches()
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );

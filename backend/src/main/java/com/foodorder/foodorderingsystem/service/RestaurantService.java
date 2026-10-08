@@ -57,7 +57,6 @@ public class RestaurantService {
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new IllegalArgumentException("Restaurant not found with id: " + restaurantId));
 
-        // Ownership check - business rule, belongs here in the service layer
         if (!restaurant.getOwner().getId().equals(requesterId)) {
             throw new SecurityException("You do not have permission to modify this restaurant");
         }
@@ -83,7 +82,6 @@ public class RestaurantService {
         restaurantRepository.save(restaurant);
     }
 
-    // ===== Mapping helper: Entity -> DTO =====
     private RestaurantDTO mapToDTO(Restaurant restaurant) {
         RestaurantDTO dto = new RestaurantDTO();
         dto.setId(restaurant.getId());

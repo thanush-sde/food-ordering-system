@@ -23,7 +23,7 @@ public class RegisterRequest {
 
     private String phoneNumber;
 
-    // "CUSTOMER" or "RESTAURANT_OWNER" - admin accounts aren't self-registered
+    
     @NotBlank(message = "Role is required")
     private String role;
 }

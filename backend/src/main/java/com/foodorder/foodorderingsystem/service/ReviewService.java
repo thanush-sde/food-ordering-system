@@ -33,7 +33,6 @@ public class ReviewService {
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new IllegalArgumentException("Restaurant not found with id: " + restaurantId));
 
-        // Business rule: can only review a restaurant you've actually ordered from
         boolean hasOrdered = orderRepository.findByCustomerId(userId).stream()
                 .anyMatch(order -> order.getRestaurant().getId().equals(restaurantId));
 
@@ -41,7 +40,6 @@ public class ReviewService {
             throw new IllegalArgumentException("You can only review restaurants you've ordered from");
         }
 
-        // Business rule: one review per user per restaurant (also enforced by DB constraint)
         if (reviewRepository.existsByUserIdAndRestaurantId(userId, restaurantId)) {
             throw new IllegalArgumentException("You have already reviewed this restaurant");
         }
@@ -66,7 +64,6 @@ public class ReviewService {
         Double average = reviewRepository.findAverageRatingByRestaurantId(restaurantId);
         Long count = reviewRepository.countByRestaurantId(restaurantId);
 
-        // AVG() returns null if there are zero rows - handle that explicitly
         double roundedAverage = average != null ? Math.round(average * 10) / 10.0 : 0.0;
 
         return new RestaurantRatingDTO(roundedAverage, count);

@@ -130,13 +130,10 @@ public class OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Order not found with id: " + orderId));
 
-        // Only the customer who placed the order can cancel it
         if (!order.getCustomer().getId().equals(customerId)) {
             throw new SecurityException("You do not have permission to cancel this order");
         }
 
-        // Business rule: can only cancel while still PENDING - once a restaurant
-        // starts preparing it, the customer can no longer back out unilaterally
         if (order.getStatus() != Order.OrderStatus.PENDING) {
             throw new IllegalArgumentException(
                     "This order can no longer be cancelled (current status: " + order.getStatus() + ")");

@@ -20,7 +20,6 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
-    // ===== PUBLIC endpoints - anyone can browse restaurants =====
 
     @GetMapping
     public ResponseEntity<List<RestaurantDTO>> getAllRestaurants() {
@@ -32,7 +31,7 @@ public class RestaurantController {
         return ResponseEntity.ok(restaurantService.getRestaurantById(id));
     }
 
-    // ===== PROTECTED endpoints - only RESTAURANT_OWNER can manage their own restaurants =====
+    
 
     @PostMapping
     @PreAuthorize("hasRole('RESTAURANT_OWNER')")

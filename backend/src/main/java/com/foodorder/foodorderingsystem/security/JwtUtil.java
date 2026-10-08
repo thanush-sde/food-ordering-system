@@ -24,13 +24,11 @@ public class JwtUtil {
     @Value("${app.jwt.expiration-ms}")
     private long jwtExpirationMs;
 
-    // Generates the signing key from our secret string
     private Key getSigningKey() {
         byte[] keyBytes = jwtSecret.getBytes();
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // ===== Token Generation =====
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, userDetails.getUsername());
@@ -46,7 +44,6 @@ public class JwtUtil {
                 .compact();
     }
 
-    // ===== Token Extraction =====
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -68,7 +65,6 @@ public class JwtUtil {
                 .getBody();
     }
 
-    // ===== Token Validation =====
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }

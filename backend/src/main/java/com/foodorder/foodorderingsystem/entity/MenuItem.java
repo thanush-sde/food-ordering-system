@@ -39,7 +39,7 @@ public class MenuItem {
     @Column(nullable = false)
     private boolean isAvailable = true;
 
-    // ===== Relation: Many-to-One with Restaurant =====
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;

@@ -35,23 +35,21 @@ public class Order {
 
     private LocalDateTime deliveredAt;
 
-    // ===== Relation 1: Many-to-One with User (the customer who placed it) =====
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User customer;
 
-    // ===== Relation 2: Many-to-One with Restaurant =====
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    // ===== Relation 3: Many-to-One with Address (delivery address snapshot) =====
-    // Note: we reference the address used AT THE TIME of ordering.
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_address_id", nullable = false)
     private Address deliveryAddress;
 
-    // ===== Relation 4: One-to-Many with OrderItem =====
+    
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
 

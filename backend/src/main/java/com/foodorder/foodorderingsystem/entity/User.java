@@ -42,8 +42,6 @@ public class User {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    // ===== Relation 1: Many-to-Many with Role =====
-    // A user can have multiple roles (rare but supported), and a role applies to many users.
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -52,8 +50,6 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-    // ===== Relation 2: One-to-Many with Address =====
-    // One user can have many saved addresses.
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Address> addresses = new HashSet<>();
 
@@ -62,7 +58,6 @@ public class User {
         this.createdAt = LocalDateTime.now();
     }
 
-    // Helper method to keep both sides of the Address relationship in sync
     public void addAddress(Address address) {
         addresses.add(address);
         address.setUser(this);

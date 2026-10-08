@@ -19,9 +19,6 @@ public class AddressController {
 
     private final AddressService addressService;
 
-    // No @PreAuthorize role check needed here - any authenticated user
-    // (regardless of role) should be able to manage their own addresses.
-    // SecurityConfig's anyRequest().authenticated() already covers this.
 
     @PostMapping
     public ResponseEntity<AddressDTO> addAddress(

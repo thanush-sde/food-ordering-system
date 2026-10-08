@@ -20,13 +20,11 @@ public class MenuItemController {
 
     private final MenuItemService menuItemService;
 
-    // ===== PUBLIC - browse a restaurant's menu =====
     @GetMapping("/restaurant/{restaurantId}")
     public ResponseEntity<List<MenuItemDTO>> getMenuItemsByRestaurant(@PathVariable Long restaurantId) {
         return ResponseEntity.ok(menuItemService.getMenuItemsByRestaurant(restaurantId));
     }
 
-    // ===== PROTECTED - only the restaurant's owner can manage its menu =====
 
     @PostMapping("/restaurant/{restaurantId}")
     @PreAuthorize("hasRole('RESTAURANT_OWNER')")

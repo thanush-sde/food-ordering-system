@@ -33,18 +33,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String userEmail;
 
-        // No token present, or it doesn't start with "Bearer " -> skip straight to next filter
+        
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // Strip the "Bearer " prefix (7 characters) to get the raw token
         jwt = authHeader.substring(7);
         userEmail = jwtUtil.extractUsername(jwt);
 
-        // Only authenticate if we have an email AND the user isn't already authenticated
-        // in this request's security context
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
@@ -57,8 +54,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 );
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                // This is the critical line: it tells Spring Security
-                // "this request is authenticated as this user, for the rest of this request"
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }

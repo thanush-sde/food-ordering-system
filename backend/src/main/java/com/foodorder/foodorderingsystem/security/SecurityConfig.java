@@ -23,7 +23,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity // enables @PreAuthorize on controller/service methods
+@EnableMethodSecurity 
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -72,6 +72,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/menu-items/**").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/reviews/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/auth/**","/swagger-ui/**","/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/restaurant-owner/**").hasRole("RESTAURANT_OWNER")
                         .anyRequest().authenticated()
                 )
